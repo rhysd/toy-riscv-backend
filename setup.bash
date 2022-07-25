@@ -19,9 +19,9 @@ PATHS=(
 set -x
 
 git submodule foreach git reset --hard
-git submodule foreach git clean -dfX
+# git submodule foreach git clean -dfX
 
 for path in "${PATHS[@]}"; do
     rm -rf "${LLVM}/${path}"
-    ln -s "${PWD}/${path}" "${LLVM}/${path}"
+    ln -s "${PWD}/llvm/${path}" "${LLVM}/${path}"
 done
