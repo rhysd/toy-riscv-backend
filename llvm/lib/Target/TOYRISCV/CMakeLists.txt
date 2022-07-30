@@ -10,6 +10,12 @@ tablegen(LLVM TOYRISCVGenCallingConv.inc -gen-callingconv)
 add_public_tablegen_target(TOYRISCVCommonTableGen)
 add_llvm_target(TOYRISCVCodeGen
     TOYRISCVTargetMachine.cpp
+    TOYRISCVFrameLowering.cpp
+    TOYRISCVISelLowering.cpp
+    TOYRISCVRegisterInfo.cpp
+    TOYRISCVSubtarget.cpp
+    TOYRISCVTargetMachine.cpp
+    TOYRISCVTargetObjectFile.cpp
 )
 
 add_subdirectory(TargetInfo)
