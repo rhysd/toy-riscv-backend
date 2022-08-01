@@ -45,10 +45,10 @@ class TOYRISCVInst<
   let Pattern = pattern;
   let Itinerary = itin;
 
-  let TSFlags{2-0} = format.value;
+  let TSFlags{2-0} = format.Value;
   let DecoderNamespace = "TOYRISCV";
 
-  field <bits<32>> SoftFail = 0;
+  field bits<32> SoftFail = 0;
 }
 
 //  31      30 29 28 27 26 25 24 23 22 21   20   19 18 17 16 15 14 13 12 11 10 9 8     7   6 5 4 3 2 1 0

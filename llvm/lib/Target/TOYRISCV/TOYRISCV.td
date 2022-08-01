@@ -5,6 +5,7 @@ def RV64 : HwMode<"+64bit">;
 def RV32 : HwMode<"-64bit">;
 
 include "TOYRISCVRegisterInfo.td"
+include "TOYRISCVSchedule.td"
 include "TOYRISCVInstrInfo.td"
 
 def TOYRISCVInstrInfo : InstrInfo;

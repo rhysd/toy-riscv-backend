@@ -1,7 +1,7 @@
 let Namespace = "TOYRISCV" in {
   class TOYRISCVReg<bits<5> Enc, string n, list<string> alt = []> : Register<n> {
-    let HWENcoding{4-0} = Enc;
-    let altNames = alt;
+    let HWEncoding{4-0} = Enc;
+    let AltNames = alt;
   }
 
   class TOYRISCVGPRReg<bits<5> Enc, string n, list<string> alt> : TOYRISCVReg<Enc, n, alt>;
