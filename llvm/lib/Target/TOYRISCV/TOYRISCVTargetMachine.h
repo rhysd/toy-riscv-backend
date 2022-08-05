@@ -1,6 +1,8 @@
 #if !defined TOYRISCVTARGETMACHINE_H_INCLUDED
 #define TOYRISCVTARGETMACHINE_H_INCLUDED
 
+#include "MCTargetDesc/TOYRISCVABIInfo.h"
+#include "TOYRISCVSubtarget.h"
 #include "llvm/Target/TargetMachine.h"
 #include <memory>
 

@@ -40,7 +40,7 @@ TOYRISCVTargetMachine::TOYRISCVTargetMachine(Target const &T, Triple const &TT,
                                              StringRef CPU, StringRef FS,
                                              TargetOptions const &Options,
                                              Optional<Reloc::Model> RM,
-                                             Optional<COdeModel::Model> CM,
+                                             Optional<CodeModel::Model> CM,
                                              CodeGenOpt::Level OL, bool JIT)
     : LLVMTargetMachine(T, computeDataLayout(TT, CPU, Options), TT, CPU, FS,
                         Options, getEffectiveRelocModel(JIT, RM),
@@ -54,13 +54,13 @@ TOYRISCVTargetMachine::TOYRISCVTargetMachine(Target const &T, Triple const &TT,
 TOYRISCV32TargetMachine::TOYRISCV32TargetMachine(
     Target const &T, Triple const &TT, StringRef CPU, StringRef FS,
     TargetOptions const &Options, Optional<Reloc::Model> RM,
-    Optional<COdeModel::Model> CM, CodeGenOpt::Level OL, bool JIT)
+    Optional<CodeModel::Model> CM, CodeGenOpt::Level OL, bool JIT)
     : TOYRISCVTargetMachine(T, TT, CPU, FS, Options, RM, CM, OL, JIT) {}
 
 TOYRISCV64TargetMachine::TOYRISCV64TargetMachine(
     Target const &T, Triple const &TT, StringRef CPU, StringRef FS,
     TargetOptions const &Options, Optional<Reloc::Model> RM,
-    Optional<COdeModel::Model> CM, CodeGenOpt::Level OL, bool JIT)
+    Optional<CodeModel::Model> CM, CodeGenOpt::Level OL, bool JIT)
     : TOYRISCVTargetMachine(T, TT, CPU, FS, Options, RM, CM, OL, JIT) {}
 
 // vim: set ts=2 sw=2 sts=2:

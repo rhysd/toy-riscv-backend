@@ -1,5 +1,7 @@
 #include "TOYRISCVISelLowering.h"
 
+#include "TOYRISCVGenCallingConv.inc"
+
 using namespace llvm;
 
 SDValue TOYRISCVTargetLowering::LowerFormalArguments(

@@ -1,5 +1,11 @@
 #include "TOYRISCVSubtarget.h"
 
+#define GET_SUBTARGETINFO_TARGET_DESC
+#define GET_SUBTARGETINFO_CTOR
+#include "TOYRISCVGenSubtargetInfo.inc"
+
+using namespace llvm;
+
 TOYRISCVSubtarget &TOYRISCVSubtarget::initializeSubtargetDependencies(
     StringRef CPU, StringRef TuneCPU, StringRef FS, const TargetMachine &TM) {
   if (TargetTriple.getArch() == Triple::toyriscv32) {

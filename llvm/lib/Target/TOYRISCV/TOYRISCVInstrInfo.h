@@ -3,7 +3,12 @@
 
 #include "llvm/CodeGen/TargetInstrInfo.h"
 
-class TOYRISCVInstrInfo : public TOYRISCVGenInstrInfo {};
+#define GET_INSTRINFO_HEADER
+#include "TOYRISCVGenInstrInfo.inc"
+
+class TOYRISCVInstrInfo : public TOYRISCVGenInstrInfo {
+  // TODO
+};
 
 #endif // TOYRISCVINSTRINFO_H_INCLUDED
 

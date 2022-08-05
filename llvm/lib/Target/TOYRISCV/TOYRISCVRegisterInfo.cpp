@@ -1,4 +1,9 @@
 #include "TOYRISCVRegisterInfo.h"
+#include "TOYRISCV.h"
+#include "TOYRISCVSubtarget.h"
+
+#define GET_REGINFO_TARGET_DESC
+#include "TOYRISCVGenRegisterInfo.inc"
 
 using namespace llvm;
 

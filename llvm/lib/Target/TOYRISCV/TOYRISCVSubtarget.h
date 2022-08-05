@@ -1,7 +1,17 @@
 #if !defined TOYRISCVSUBTARGET_H_INCLUDED
 #define TOYRISCVSUBTARGET_H_INCLUDED
 
-#include "llvm/Target/TargetMachine.h"
+#include "TOYRISCVFrameLowering.h"
+#include "TOYRISCVISelLowering.h"
+#include "TOYRISCVInstrInfo.h"
+
+#include "llvm/CodeGen/SelectionDAGTargetInfo.h"
+#include "llvm/CodeGen/TargetSubtargetInfo.h"
+#include "llvm/IR/DataLayout.h"
+#include "llvm/MC/MCInstrItineraries.h"
+
+#define GET_SUBTARGETINFO_HEADER
+#include "TOYRISCVGenSubtargetInfo.inc"
 
 namespace llvm {
 
