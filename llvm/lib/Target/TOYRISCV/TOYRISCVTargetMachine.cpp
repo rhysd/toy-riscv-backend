@@ -1,6 +1,6 @@
 #include "TOYRISCVTargetMachine.h"
 #include "TOYRISCV.h"
-#include "llvm/Support/TargetRegistry.h"
+#include "llvm/MC/TargetRegistry.h"
 #include <string>
 
 using namespace llvm;

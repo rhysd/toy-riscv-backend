@@ -1,5 +1,13 @@
 include "TOYRISCVInstrFormats.td"
 
+def simm12 : Operand<XLenVT>, ImmLeaf<XLenVT, [{return isInt<12>(Imm);}]> {
+  let DecoderMethod = "decodeImmOperand<12>";
+}
+def simm20u : Operand<XLenVT>, ImmLeaf<XLenVT, [{return isInt<32>(Imm) && !(Imm & 0x0fff);}]> {
+  let DecoderMethod = "decodeImmOperand<20>";
+}
+def simm32: Operand<XLenVT>, ImmLeaf<XLenVT, [{return isInt<32>(Imm);}]>;
+
 // Arithmetic logic operations with 2 registers inputs
 class ArithLogicR<
   bits<7> opcode, bits<3> funct3, bits<7> funct7, string instr, SDNode OpNode, RegisterClass RC

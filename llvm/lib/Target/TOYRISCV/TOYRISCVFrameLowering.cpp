@@ -1,5 +1,7 @@
 #include "TOYRISCVFrameLowering.h"
 
+using namespace llvm;
+
 void TOYRISCVFrameLowering::emitPrologue(MachineFunction &MF,
                                          MachineBasicBlock &MBB) const {
   // TODO

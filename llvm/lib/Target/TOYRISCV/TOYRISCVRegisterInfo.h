@@ -4,6 +4,9 @@
 #include "TOYRISCV.h"
 #include "llvm/CodeGen/TargetRegisterInfo.h"
 
+#define GET_REGINFO_HEADER
+#include "TOYRISCVGenRegisterInfo.inc"
+
 namespace llvm {
 
 class TOYRISCVRegisterInfo : public TOYRISCVGenRegisterInfo {
