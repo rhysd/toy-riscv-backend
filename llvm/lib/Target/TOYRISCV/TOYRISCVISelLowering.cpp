@@ -7,7 +7,7 @@ using namespace llvm;
 SDValue TOYRISCVTargetLowering::LowerFormalArguments(
     SDValue Chain, CallingConv::ID CallConv, bool IsVarArg,
     SmallVectorImpl<ISD::InputArg> const &Ins, SDLoc const &dl,
-    SelectionDAG const &DAG, SmallVectorImpl<SDValue> &InVals) const {
+    SelectionDAG &DAG, SmallVectorImpl<SDValue> &InVals) const {
   // TODO
   return Chain;
 }

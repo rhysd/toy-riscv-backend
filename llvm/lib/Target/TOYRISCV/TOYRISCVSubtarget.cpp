@@ -1,4 +1,7 @@
 #include "TOYRISCVSubtarget.h"
+#include "TOYRISCV.h"
+#include "TOYRISCVRegisterInfo.h"
+#include "TOYRISCVTargetMachine.h"
 
 #define GET_SUBTARGETINFO_TARGET_DESC
 #define GET_SUBTARGETINFO_CTOR
@@ -6,8 +9,14 @@
 
 using namespace llvm;
 
+TOYRISCVSubtarget::TOYRISCVSubtarget(Triple const &TT, StringRef &CPU,
+                                     StringRef &TuneCPU, StringRef &FS,
+                                     TOYRISCVTargetMachine const &TTM)
+    : TOYRISCVGenSubtargetInfo(TT, CPU, TuneCPU, FS), TargetTriple(TT), TM(TTM),
+      FrameLowering(initializeSubtargetDependencies(CPU, TuneCPU, FS, TM)) {}
+
 TOYRISCVSubtarget &TOYRISCVSubtarget::initializeSubtargetDependencies(
-    StringRef CPU, StringRef TuneCPU, StringRef FS, const TargetMachine &TM) {
+    StringRef CPU, StringRef TuneCPU, StringRef FS, TargetMachine const &TM) {
   if (TargetTriple.getArch() == Triple::toyriscv32) {
     if (CPU.empty() || CPU == "generic") {
       CPU = "cpu-rv32";

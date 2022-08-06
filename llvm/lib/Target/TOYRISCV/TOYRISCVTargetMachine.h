@@ -22,6 +22,11 @@ public:
                         Optional<Reloc::Model> RM,
                         Optional<CodeModel::Model> CM, CodeGenOpt::Level OL,
                         bool JIT);
+  ~TOYRISCVTargetMachine() override;
+
+  TOYRISCVSubtarget const *getSubtargetImpl(Function const &F) const override;
+  TargetPassConfig *createPassConfig(PassManagerBase &PM) override;
+  TargetLoweringObjectFile *getObjFileLowering() const override;
 };
 
 class TOYRISCV32TargetMachine : public TOYRISCVTargetMachine {

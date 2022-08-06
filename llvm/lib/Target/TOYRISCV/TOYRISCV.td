@@ -7,6 +7,7 @@ def RV32 : HwMode<"-64bit">;
 include "TOYRISCVRegisterInfo.td"
 include "TOYRISCVSchedule.td"
 include "TOYRISCVInstrInfo.td"
+include "TOYRISCVCallingConv.td"
 
 def TOYRISCVInstrInfo : InstrInfo;
 

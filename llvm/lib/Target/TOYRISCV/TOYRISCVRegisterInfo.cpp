@@ -1,6 +1,12 @@
 #include "TOYRISCVRegisterInfo.h"
 #include "TOYRISCV.h"
 #include "TOYRISCVSubtarget.h"
+#include "llvm/IR/Function.h"
+#include "llvm/IR/Type.h"
+#include "llvm/Support/CommandLine.h"
+#include "llvm/Support/Debug.h"
+#include "llvm/Support/ErrorHandling.h"
+#include "llvm/Support/raw_ostream.h"
 
 #define GET_REGINFO_TARGET_DESC
 #include "TOYRISCVGenRegisterInfo.inc"
@@ -25,16 +31,16 @@ TOYRISCVRegisterInfo::getReservedRegs(MachineFunction const &MF) const {
                                           TOYRISCV::FP,   TOYRISCV::SP,
                                           TOYRISCV::GP,   TOYRISCV::TP};
   BitVector Reserved(getNumRegs());
-  for (const reg : ReservedCPURegs) {
+  for (auto const reg : ReservedCPURegs) {
     Reserved.set(reg);
   }
 
   return Reserved;
 }
 
-void TOYRISCVRegisterInfo::eliminateFrameIndex(
-    MachineBasicBlock::iterator II, int SPAdj, unsigned FIOperandNum,
-    RegScavenger *RS = nullptr) const {
+void TOYRISCVRegisterInfo::eliminateFrameIndex(MachineBasicBlock::iterator II,
+                                               int SPAdj, unsigned FIOperandNum,
+                                               RegScavenger *RS) const {
   // TODO
 }
 

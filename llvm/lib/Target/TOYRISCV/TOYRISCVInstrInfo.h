@@ -6,9 +6,13 @@
 #define GET_INSTRINFO_HEADER
 #include "TOYRISCVGenInstrInfo.inc"
 
+namespace llvm {
+
 class TOYRISCVInstrInfo : public TOYRISCVGenInstrInfo {
   // TODO
 };
+
+} // namespace llvm
 
 #endif // TOYRISCVINSTRINFO_H_INCLUDED
 

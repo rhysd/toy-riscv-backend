@@ -1,5 +1,8 @@
 #include "TOYRISCVTargetMachine.h"
 #include "TOYRISCV.h"
+#include "TOYRISCVTargetObjectFile.h"
+#include "llvm/CodeGen/Passes.h"
+#include "llvm/CodeGen/TargetPassConfig.h"
 #include "llvm/MC/TargetRegistry.h"
 #include <string>
 
@@ -10,7 +13,8 @@ extern "C" void LLVMInitializeTOYRISCVTarget() {
   RegisterTargetMachine<TOYRISCV64TargetMachine> Y(getTheTOYRISCV64Target());
 }
 
-static StringRef computeDataLayout(const Triple &TT) {
+static StringRef computeDataLayout(const Triple &TT, StringRef CPU,
+                                   const TargetOptions &Options) {
   // Example:
   //  e-m:e-p:64:64-i64:64-i128:128-n64-S128
   //    e = little endian
@@ -36,6 +40,13 @@ static Reloc::Model getEffectiveRelocModel(bool JIT,
   return *RM;
 }
 
+class TOYRISCVPassConfig : public TargetPassConfig {
+public:
+  TOYRISCVPassConfig(TOYRISCVTargetMachine &TM, PassManagerBase &PM)
+      : TargetPassConfig(TM, PM) {}
+  // TODO
+};
+
 TOYRISCVTargetMachine::TOYRISCVTargetMachine(Target const &T, Triple const &TT,
                                              StringRef CPU, StringRef FS,
                                              TargetOptions const &Options,
@@ -45,10 +56,25 @@ TOYRISCVTargetMachine::TOYRISCVTargetMachine(Target const &T, Triple const &TT,
     : LLVMTargetMachine(T, computeDataLayout(TT, CPU, Options), TT, CPU, FS,
                         Options, getEffectiveRelocModel(JIT, RM),
                         getEffectiveCodeModel(CM, CodeModel::Small), OL),
-      TLOF(std::make_unique<TOYRISCVTargetTargetObjectFile>()),
-      TBI(TOYRISCVABIInfo::computeTargetABI(Options.MCOptions.getABIName())),
+      TLOF(std::make_unique<TOYRISCVTargetObjectFile>()),
+      ABI(TOYRISCVABIInfo::computeTargetABI(Options.MCOptions.getABIName())),
       DefaultSubtarget(TT, CPU, CPU, FS, *this) {
   initAsmInfo();
+}
+
+TOYRISCVTargetMachine::~TOYRISCVTargetMachine() {}
+
+TOYRISCVSubtarget const *
+TOYRISCVTargetMachine::getSubtargetImpl(Function const &F) const {
+  return &DefaultSubtarget;
+}
+
+TargetPassConfig *TOYRISCVTargetMachine::createPassConfig(PassManagerBase &PM) {
+  return new TOYRISCVPassConfig(*this, PM);
+}
+
+TargetLoweringObjectFile *TOYRISCVTargetMachine::getObjFileLowering() const {
+  return TLOF.get();
 }
 
 TOYRISCV32TargetMachine::TOYRISCV32TargetMachine(

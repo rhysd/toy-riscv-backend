@@ -6,12 +6,21 @@
 
 namespace llvm {
 
-class TOYRSICVSubtarget;
+class TOYRISCVSubtarget;
 
 class TOYRISCVFrameLowering : public TargetFrameLowering {
+protected:
+  const TOYRISCVSubtarget &STI;
+
 public:
+  explicit TOYRISCVFrameLowering(const TOYRISCVSubtarget &sti);
+
   void emitPrologue(MachineFunction &MF, MachineBasicBlock &MBB) const override;
   void emitEpilogue(MachineFunction &MF, MachineBasicBlock &MBB) const override;
+  bool hasFP(const MachineFunction &MF) const override;
+  MachineBasicBlock::iterator
+  eliminateCallFramePseudoInstr(MachineFunction &MF, MachineBasicBlock &MBB,
+                                MachineBasicBlock::iterator I) const override;
 };
 
 } // namespace llvm

@@ -4,6 +4,15 @@
 #include "llvm/MC/MCTargetOptions.h"
 #include "llvm/Support/DataTypes.h"
 
+namespace llvm {
+
+class Target;
+
+Target &getTheTOYRISCV32Target();
+Target &getTheTOYRISCV64Target();
+
+} // namespace llvm
+
 #define GET_REGINFO_ENUM
 #include "TOYRISCVGenRegisterInfo.inc"
 

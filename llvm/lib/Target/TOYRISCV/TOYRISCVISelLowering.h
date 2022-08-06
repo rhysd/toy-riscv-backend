@@ -12,8 +12,9 @@ public:
   SDValue LowerFormalArguments(SDValue Chain, CallingConv::ID CallConv,
                                bool IsVarArg,
                                SmallVectorImpl<ISD::InputArg> const &Ins,
-                               SDLoc const &dl, SelectionDAG const &DAG,
+                               SDLoc const &dl, SelectionDAG &DAG,
                                SmallVectorImpl<SDValue> &InVals) const override;
+
   SDValue LowerReturn(SDValue Chain, CallingConv::ID CallConv, bool IsVarArg,
                       SmallVectorImpl<ISD::OutputArg> const &Outs,
                       SmallVectorImpl<SDValue> const &OutVals, SDLoc const &dl,
