@@ -43,4 +43,8 @@ TOYRISCVSubtarget &TOYRISCVSubtarget::initializeSubtargetDependencies(
   return *this;
 }
 
+TOYRISCVSubtarget::~TOYRISCVSubtarget() {}
+
+void TOYRISCVSubtarget::anchor() {}
+
 // vim: set ts=2 sw=2 sts=2:

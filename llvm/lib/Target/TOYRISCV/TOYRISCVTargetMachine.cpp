@@ -83,10 +83,14 @@ TOYRISCV32TargetMachine::TOYRISCV32TargetMachine(
     Optional<CodeModel::Model> CM, CodeGenOpt::Level OL, bool JIT)
     : TOYRISCVTargetMachine(T, TT, CPU, FS, Options, RM, CM, OL, JIT) {}
 
+void TOYRISCV32TargetMachine::anchor() {}
+
 TOYRISCV64TargetMachine::TOYRISCV64TargetMachine(
     Target const &T, Triple const &TT, StringRef CPU, StringRef FS,
     TargetOptions const &Options, Optional<Reloc::Model> RM,
     Optional<CodeModel::Model> CM, CodeGenOpt::Level OL, bool JIT)
     : TOYRISCVTargetMachine(T, TT, CPU, FS, Options, RM, CM, OL, JIT) {}
+
+void TOYRISCV64TargetMachine::anchor() {}
 
 // vim: set ts=2 sw=2 sts=2:
