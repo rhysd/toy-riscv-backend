@@ -13,7 +13,7 @@ class ArithLogicR<
   bits<7> opcode, bits<3> funct3, bits<7> funct7, string instr, SDNode OpNode, RegisterClass RC
 >: TOYRISCVInstR<
   opcode, funct3, funct7, (outs RC:$rd), (ins RC:$rs1, RC:$rs2),
-  !strconcat(instr, "\t$rd, $rs, $rs2"),
+  !strconcat(instr, "\t$rd, $rs1, $rs2"),
   [(set RC:$rd, (OpNode RC:$rs1, RC:$rs2))],
   IIAlu
 > {

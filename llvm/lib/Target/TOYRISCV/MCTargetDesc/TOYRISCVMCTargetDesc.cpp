@@ -39,14 +39,14 @@ static MCAsmInfo *createTOYRISCVMCAsmInfo(MCRegisterInfo const &MRI,
 
 static MCInstrInfo *createTOYRISCVMCInstrInfo() {
   MCInstrInfo *I = new MCInstrInfo();
-  // This function is defined in TOYRISCVGenInstrInfo.inc
+  // This function is generated in TOYRISCVGenInstrInfo.inc
   InitTOYRISCVMCInstrInfo(I);
   return I;
 }
 
 static MCRegisterInfo *createTOYRISCVMCRegisterInfo(Triple const &TT) {
   MCRegisterInfo *X = new MCRegisterInfo();
-  // This function is defined in TOYRISCVGenRegisterInfo.inc
+  // This function is generated in TOYRISCVGenRegisterInfo.inc
   InitTOYRISCVMCRegisterInfo(X, TOYRISCV::RA);
   return X;
 }
@@ -56,7 +56,7 @@ createTOYRISCVMCSubtargetInfo(Triple const &TT, StringRef CPU, StringRef FS) {
   if (CPU.empty()) {
     CPU = TT.isArch64Bit() ? "cpu-rv64" : "cpu-rv32";
   }
-  // This function is defined in TOYRISCVGenSubtargetInfo.inc
+  // This function is generated in TOYRISCVGenSubtargetInfo.inc
   return createTOYRISCVMCSubtargetInfoImpl(TT, CPU, CPU, FS);
 }
 
@@ -64,15 +64,27 @@ static MCInstrAnalysis *createTOYRISCVMCInstrAnalysis(const MCInstrInfo *Info) {
   return new MCInstrAnalysis(Info);
 }
 
-// This function will be called by llc via C preprocessor
-extern "C" void LLVMInitializeTOYRISCVTargetMC() {
-  Target &T = getTheTOYRISCV32Target();
+static MCInstPrinter *createTOYRISCVMCInstPrinter(Triple const &T,
+                                                  unsigned SyntaxVariant,
+                                                  MCAsmInfo const &MAI,
+                                                  MCInstrInfo const &MII,
+                                                  MCRegisterInfo const &MRI) {
+  return new TOYRISCVInstPrinter(MAI, MII, MRI);
+}
 
+static void initializeTarget(Target &T) {
   RegisterMCAsmInfoFn X(T, createTOYRISCVMCAsmInfo);
   TargetRegistry::RegisterMCInstrInfo(T, createTOYRISCVMCInstrInfo);
   TargetRegistry::RegisterMCRegInfo(T, createTOYRISCVMCRegisterInfo);
   TargetRegistry::RegisterMCSubtargetInfo(T, createTOYRISCVMCSubtargetInfo);
   TargetRegistry::RegisterMCInstrAnalysis(T, createTOYRISCVMCInstrAnalysis);
+  TargetRegistry::RegisterMCInstPrinter(T, createTOYRISCVMCInstPrinter);
+}
+
+// This function will be called by llc via C preprocessor
+extern "C" void LLVMInitializeTOYRISCVTargetMC() {
+  initializeTarget(getTheTOYRISCV32Target());
+  initializeTarget(getTheTOYRISCV64Target());
 }
 
 // vim: set ts=2 sw=2 sts=2:

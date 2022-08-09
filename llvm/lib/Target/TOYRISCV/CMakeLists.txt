@@ -6,6 +6,7 @@ tablegen(LLVM TOYRISCVGenInstrInfo.inc -gen-instr-info)
 tablegen(LLVM TOYRISCVGenSubtargetInfo.inc -gen-subtarget)
 tablegen(LLVM TOYRISCVGenMCPseudoLowering.inc -gen-pseudo-lowering)
 tablegen(LLVM TOYRISCVGenCallingConv.inc -gen-callingconv)
+tablegen(LLVM TOYRISCVGenAsmWriter.inc -gen-asm-writer)
 
 add_public_tablegen_target(TOYRISCVCommonTableGen)
 
