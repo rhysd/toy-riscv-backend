@@ -1,4 +1,17 @@
+## References
+
+- Official RISC-V backend: https://github.com/llvm/llvm-project/tree/f28c006a5895fc0e329fe15fead81e37457cb1d1/llvm/lib/Target/RISCV
+- RISC-V specification: https://riscv.org/technical/specifications/
+  - v20191213 (PDF): https://github.com/riscv/riscv-isa-manual/releases/download/Ratified-IMAFDQC/riscv-spec-20191213.pdf
+- RISC-V Assembly Manual: https://github.com/riscv-non-isa/riscv-asm-manual/blob/master/riscv-asm.md
+
 ## Getting started
+
+Clone this repository:
+
+```sh
+git clone --recursive https://github.com/rhysd/toy-riscv-backend.git
+```
 
 Setup LLVM:
 
@@ -6,7 +19,7 @@ Setup LLVM:
 ./setup.bash
 cd ./llvm-project/llvm
 mkdir ./build && cd ./build
-cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug -DLLVM_TARGETS_TO_BUILD="X86;RISCV" -DLLVM_ENABLE_PROJECTS="clang;libcxx;libcxxabi" ..
+cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug -DLLVM_TARGETS_TO_BUILD="X86;TOYRISCV;RISCV" -DLLVM_ENABLE_PROJECTS="clang;libcxx;libcxxabi" ..
 ninja
 ```
 
@@ -19,7 +32,7 @@ docker run -it --rm -v $(pwd):/app riscvback /bin/bash
 
 ## Random notes
 
-### How to compile
+### How to compile and run C sources with RISCV backend
 
 Compile sources.
 
@@ -69,3 +82,17 @@ spike pk source.o
 ```
 
 Note that compiling to an object file from LLVM bitcode via `llc` with `-filetype=obj` does not work.
+
+### How to compile C sources to assembly with our own TOYRISCV backend
+
+Compile to LLVM bitcode using Clang with `riscv64-unknown-elf` target.
+
+```sh
+./llvm-project/llvm/build/bin/clang --target=riscv64-unknown-elf -O3 hello.c -c -emit-llvm -o hello.bc
+```
+
+Then compile the bitcode to RISC-V 64bit assembly using our own TOYRISCV backend.
+
+```sh
+./llvm-project/llvm/build/bin/llc -debug -march=toyriscv64 -filetype=asm hello.bc -o hello.S
+```
