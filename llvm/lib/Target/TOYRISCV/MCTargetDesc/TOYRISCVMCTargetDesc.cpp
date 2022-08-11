@@ -1,6 +1,7 @@
 #include "TOYRISCVMCTargetDesc.h"
 #include "MCTargetDesc/TOYRISCVInstPrinter.h"
 #include "MCTargetDesc/TOYRISCVMCAsmInfo.h"
+#include "MCTargetDesc/TOYRISCVTargetStreamer.h"
 #include "llvm/MC/MCELFStreamer.h"
 #include "llvm/MC/MCInstPrinter.h"
 #include "llvm/MC/MCInstrAnalysis.h"
@@ -72,13 +73,21 @@ static MCInstPrinter *createTOYRISCVMCInstPrinter(Triple const &T,
   return new TOYRISCVInstPrinter(MAI, MII, MRI);
 }
 
+static MCTargetStreamer *
+createTOYRISCVAsmTargetStreamer(MCStreamer &S, formatted_raw_ostream &OS,
+                                MCInstPrinter *_InstPrint, bool _isVerboseAsm) {
+  return new TOYRISCVTargetAsmStreamer(S, OS);
+}
+
 static void initializeTarget(Target &T) {
-  RegisterMCAsmInfoFn X(T, createTOYRISCVMCAsmInfo);
+  TargetRegistry::RegisterMCAsmInfo(T, createTOYRISCVMCAsmInfo);
   TargetRegistry::RegisterMCInstrInfo(T, createTOYRISCVMCInstrInfo);
   TargetRegistry::RegisterMCRegInfo(T, createTOYRISCVMCRegisterInfo);
   TargetRegistry::RegisterMCSubtargetInfo(T, createTOYRISCVMCSubtargetInfo);
   TargetRegistry::RegisterMCInstrAnalysis(T, createTOYRISCVMCInstrAnalysis);
   TargetRegistry::RegisterMCInstPrinter(T, createTOYRISCVMCInstPrinter);
+  TargetRegistry::RegisterAsmTargetStreamer(T, createTOYRISCVAsmTargetStreamer);
+  // TODO: TargetRegistry::RegisterObjectTargetStreamer
 }
 
 // This function will be called by llc via C preprocessor
