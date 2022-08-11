@@ -17,6 +17,7 @@ add_llvm_target(TOYRISCVCodeGen
     TOYRISCVRegisterInfo.cpp
     TOYRISCVSubtarget.cpp
     TOYRISCVTargetObjectFile.cpp
+    TOYRISCVAsmPrinter.cpp
 )
 
 add_subdirectory(TargetInfo)

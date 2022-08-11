@@ -1,4 +1,5 @@
 #include "TOYRISCVMCTargetDesc.h"
+#include "MCTargetDesc/TOYRISCVCodeEmitter.h"
 #include "MCTargetDesc/TOYRISCVInstPrinter.h"
 #include "MCTargetDesc/TOYRISCVMCAsmInfo.h"
 #include "MCTargetDesc/TOYRISCVTargetStreamer.h"
@@ -79,6 +80,12 @@ createTOYRISCVAsmTargetStreamer(MCStreamer &S, formatted_raw_ostream &OS,
   return new TOYRISCVTargetAsmStreamer(S, OS);
 }
 
+static MCCodeEmitter *createTOYRISCVMCCodeEmitter(MCInstrInfo const &MCII,
+                                                  MCRegisterInfo const &MRI,
+                                                  MCContext &Ctx) {
+  return new TOYRISCVMCCodeEmitter(MCII, Ctx, true);
+}
+
 static void initializeTarget(Target &T) {
   TargetRegistry::RegisterMCAsmInfo(T, createTOYRISCVMCAsmInfo);
   TargetRegistry::RegisterMCInstrInfo(T, createTOYRISCVMCInstrInfo);
@@ -88,6 +95,7 @@ static void initializeTarget(Target &T) {
   TargetRegistry::RegisterMCInstPrinter(T, createTOYRISCVMCInstPrinter);
   TargetRegistry::RegisterAsmTargetStreamer(T, createTOYRISCVAsmTargetStreamer);
   // TODO: TargetRegistry::RegisterObjectTargetStreamer
+  TargetRegistry::RegisterMCCodeEmitter(T, createTOYRISCVMCCodeEmitter);
 }
 
 // This function will be called by llc via C preprocessor

@@ -4,4 +4,5 @@ add_llvm_library(LLVMTOYRISCVDesc
     TOYRISCVMCAsmInfo.cpp
     TOYRISCVInstPrinter.cpp
     TOYRISCVTargetStreamer.cpp
+    TOYRISCVCodeEmitter.cpp
 )
