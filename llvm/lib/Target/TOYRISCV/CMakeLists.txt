@@ -5,6 +5,7 @@ tablegen(LLVM TOYRISCVGenRegisterInfo.inc -gen-register-info)
 tablegen(LLVM TOYRISCVGenInstrInfo.inc -gen-instr-info)
 tablegen(LLVM TOYRISCVGenSubtargetInfo.inc -gen-subtarget)
 tablegen(LLVM TOYRISCVGenMCPseudoLowering.inc -gen-pseudo-lowering)
+tablegen(LLVM TOYRISCVGenDAGISel.inc -gen-dag-isel)
 tablegen(LLVM TOYRISCVGenCallingConv.inc -gen-callingconv)
 tablegen(LLVM TOYRISCVGenAsmWriter.inc -gen-asm-writer)
 
@@ -18,6 +19,7 @@ add_llvm_target(TOYRISCVCodeGen
     TOYRISCVSubtarget.cpp
     TOYRISCVTargetObjectFile.cpp
     TOYRISCVAsmPrinter.cpp
+    TOYRISCVISelDagToDag.cpp
 )
 
 add_subdirectory(TargetInfo)

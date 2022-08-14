@@ -11,8 +11,8 @@ class MCFixup;
 class raw_ostream;
 
 class TOYRISCVMCCodeEmitter : public MCCodeEmitter {
-  MCContext &Ctx;
   MCInstrInfo const &MCII;
+  MCContext &Ctx;
   bool IsLittleEndian;
 
 public:

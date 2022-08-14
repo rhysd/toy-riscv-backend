@@ -1,5 +1,6 @@
 #include "TOYRISCVTargetMachine.h"
 #include "TOYRISCV.h"
+#include "TOYRISCVISelDagToDag.h"
 #include "TOYRISCVTargetObjectFile.h"
 #include "llvm/CodeGen/Passes.h"
 #include "llvm/CodeGen/TargetPassConfig.h"
@@ -44,6 +45,13 @@ class TOYRISCVPassConfig : public TargetPassConfig {
 public:
   TOYRISCVPassConfig(TOYRISCVTargetMachine &TM, PassManagerBase &PM)
       : TargetPassConfig(TM, PM) {}
+
+  bool addInstSelector() override {
+    addPass(new TOYRISCVDAGToDAGISel(getTM<TOYRISCVTargetMachine>(),
+                                     getOptLevel()));
+    return false;
+  }
+
   // TODO
 };
 
