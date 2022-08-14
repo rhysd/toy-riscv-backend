@@ -5,7 +5,7 @@ using namespace llvm;
 void TOYRISCVTargetObjectFile::Initialize(MCContext &Ctx,
                                           TargetMachine const &TM) {
   TargetLoweringObjectFileELF::Initialize(Ctx, TM);
-  // TODO
+  InitializeELF(TM.Options.UseInitArray);
   this->TM = &static_cast<TOYRISCVTargetMachine const &>(TM);
 }
 

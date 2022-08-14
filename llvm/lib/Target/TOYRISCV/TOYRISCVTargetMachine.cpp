@@ -72,6 +72,8 @@ TOYRISCVTargetMachine::TOYRISCVTargetMachine(Target const &T, Triple const &TT,
 
 TOYRISCVTargetMachine::~TOYRISCVTargetMachine() {}
 
+TOYRISCVABIInfo const &TOYRISCVTargetMachine::getABI() const { return ABI; }
+
 TOYRISCVSubtarget const *
 TOYRISCVTargetMachine::getSubtargetImpl(Function const &F) const {
   return &DefaultSubtarget;

@@ -24,6 +24,8 @@ public:
                         bool JIT);
   ~TOYRISCVTargetMachine() override;
 
+  TOYRISCVABIInfo const &getABI() const;
+
   TOYRISCVSubtarget const *getSubtargetImpl(Function const &F) const override;
   TargetPassConfig *createPassConfig(PassManagerBase &PM) override;
   TargetLoweringObjectFile *getObjFileLowering() const override;

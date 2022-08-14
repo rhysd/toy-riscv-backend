@@ -1,14 +1,22 @@
 #if !defined TOYRISCVISELLOWERING_H_INCLUDED
 #define TOYRISCVISELLOWERING_H_INCLUDED
 
+#include "MCTargetDesc/TOYRISCVABIInfo.h"
 #include "TOYRISCV.h"
 #include "llvm/CodeGen/SelectionDAG.h"
 #include "llvm/CodeGen/TargetLowering.h"
 
 namespace llvm {
 
+class TOYRISCVSubtarget;
+
 class TOYRISCVTargetLowering : public TargetLowering {
+  TOYRISCVSubtarget const &Subtarget;
+  TOYRISCVABIInfo const &ABI;
+
 public:
+  TOYRISCVTargetLowering(TOYRISCVTargetMachine const &TM,
+                         TOYRISCVSubtarget const &STI);
   SDValue LowerFormalArguments(SDValue Chain, CallingConv::ID CallConv,
                                bool IsVarArg,
                                SmallVectorImpl<ISD::InputArg> const &Ins,

@@ -1,5 +1,6 @@
 #include "TOYRISCVSubtarget.h"
 #include "TOYRISCV.h"
+#include "TOYRISCVISelLowering.h"
 #include "TOYRISCVRegisterInfo.h"
 #include "TOYRISCVTargetMachine.h"
 
@@ -13,7 +14,8 @@ TOYRISCVSubtarget::TOYRISCVSubtarget(Triple const &TT, StringRef &CPU,
                                      StringRef &TuneCPU, StringRef &FS,
                                      TOYRISCVTargetMachine const &TTM)
     : TOYRISCVGenSubtargetInfo(TT, CPU, TuneCPU, FS), TargetTriple(TT), TM(TTM),
-      FrameLowering(initializeSubtargetDependencies(CPU, TuneCPU, FS, TM)) {}
+      FrameLowering(initializeSubtargetDependencies(CPU, TuneCPU, FS, TM)),
+      TargetLowering(TM, *this) {}
 
 TOYRISCVSubtarget &TOYRISCVSubtarget::initializeSubtargetDependencies(
     StringRef CPU, StringRef TuneCPU, StringRef FS, TargetMachine const &TM) {
@@ -44,6 +46,10 @@ TOYRISCVSubtarget &TOYRISCVSubtarget::initializeSubtargetDependencies(
 }
 
 TOYRISCVSubtarget::~TOYRISCVSubtarget() {}
+
+TOYRISCVTargetLowering const *TOYRISCVSubtarget::getTargetLowering() const {
+  return &TargetLowering;
+}
 
 void TOYRISCVSubtarget::anchor() {}
 

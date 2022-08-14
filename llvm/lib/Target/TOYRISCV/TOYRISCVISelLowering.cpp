@@ -1,8 +1,15 @@
 #include "TOYRISCVISelLowering.h"
+#include "TOYRISCVTargetMachine.h"
 
 #include "TOYRISCVGenCallingConv.inc"
 
 using namespace llvm;
+
+TOYRISCVTargetLowering::TOYRISCVTargetLowering(TOYRISCVTargetMachine const &TM,
+                                               TOYRISCVSubtarget const &STI)
+    : TargetLowering(TM), Subtarget(STI), ABI(TM.getABI()) {
+  // TODO
+}
 
 SDValue TOYRISCVTargetLowering::LowerFormalArguments(
     SDValue Chain, CallingConv::ID CallConv, bool IsVarArg,
