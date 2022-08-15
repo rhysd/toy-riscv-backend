@@ -29,6 +29,7 @@ protected:
   InstrItineraryData InstrItins;
   Triple TargetTriple;
   const TOYRISCVTargetMachine &TM;
+  TOYRISCVInstrInfo InstrInfo;
   TOYRISCVFrameLowering FrameLowering;
   TOYRISCVTargetLowering TargetLowering;
   TOYRISCVRegisterInfo RegInfo;
@@ -41,6 +42,8 @@ public:
                                                      StringRef FS,
                                                      TargetMachine const &TM);
   ~TOYRISCVSubtarget() override;
+
+  TOYRISCVInstrInfo const *getInstrInfo() const override;
   TOYRISCVFrameLowering const *getFrameLowering() const override;
   TOYRISCVTargetLowering const *getTargetLowering() const override;
   TOYRISCVRegisterInfo const *getRegisterInfo() const override;

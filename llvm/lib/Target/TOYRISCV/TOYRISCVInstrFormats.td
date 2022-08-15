@@ -19,13 +19,13 @@ class Format<bits<3> val> {
   bits<3> Value = val;
 }
 
-def Pseudo  : Format<0>;
-def FormatR : Format<1>;
-def FormatI : Format<2>;
-def FormatS : Format<3>;
-def FormatU : Format<4>;
-def FormatB : Format<5>;
-def FormatJ : Format<6>;
+def FormatPseudo : Format<0>;
+def FormatR      : Format<1>;
+def FormatI      : Format<2>;
+def FormatS      : Format<3>;
+def FormatU      : Format<4>;
+def FormatB      : Format<5>;
+def FormatJ      : Format<6>;
 
 class TOYRISCVInst<
   dag outs, dag ins, string asmstr, list<dag> pattern,
@@ -160,4 +160,10 @@ class TOYRISCVInstJ<
   let Inst{19-12} = imm{18-11};
   let Inst{11-7} = rd;
   let Inst{6-0} = opcode;
+}
+
+class Pseudo<dag outs, dag ins, string asmstr = "", list<dag> pattern>
+    : TOYRISCVInst<outs, ins, asmstr, pattern, IIPseudo, FormatPseudo> {
+  let isPseudo = 1;
+  let isCodeGenOnly = 1;
 }

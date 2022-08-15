@@ -43,6 +43,16 @@ class ArithLogicU<
   let isReMaterializable = 1;
 }
 
+def SDT_CallSeqStart : SDCallSeqStart<[SDTCisVT<0, XLenVT>, SDTCisVT<1, XLenVT>]>;
+def SDT_CallSeqEnd   : SDCallSeqEnd  <[SDTCisVT<0, XLenVT>, SDTCisVT<1, XLenVT>]>;
+def CallSeqStart : SDNode<"ISD::CALLSEQ_START", SDT_CallSeqStart, [SDNPHasChain, SDNPOutGlue]>;
+def CallSeqEnd   : SDNode<"ISD::CALLSEQ_END",   SDT_CallSeqEnd,   [SDNPHasChain, SDNPOptInGlue, SDNPOutGlue]>;
+
+let Defs = [SP], Uses = [SP], hasSideEffects = 1 in {
+  def ADJCALLSTACKDOWN : Pseudo<(outs), (ins simm12:$amt1, simm12:$amt2), "", [(CallSeqStart timm:$amt1, timm:$amt2)]>;
+  def ADJCALLSTACKUP   : Pseudo<(outs), (ins simm12:$amt1, simm12:$amt2), "", [(CallSeqEnd timm:$amt1,   timm:$amt2)]>;
+}
+
 // Instructions. Refer spec p.130
 def ADDI : ArithLogicI<0b0010011, 0b000, "addi", add, simm12, GPR>;
 def LUI  : ArithLogicU<0b0110111, "lui", GPR, simm20u>;

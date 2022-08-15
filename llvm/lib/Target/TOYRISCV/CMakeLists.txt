@@ -17,6 +17,7 @@ add_llvm_target(TOYRISCVCodeGen
     TOYRISCVISelLowering.cpp
     TOYRISCVRegisterInfo.cpp
     TOYRISCVSubtarget.cpp
+    TOYRISCVInstrInfo.cpp
     TOYRISCVTargetObjectFile.cpp
     TOYRISCVAsmPrinter.cpp
     TOYRISCVISelDagToDag.cpp

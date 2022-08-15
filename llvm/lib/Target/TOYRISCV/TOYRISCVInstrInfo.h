@@ -1,6 +1,7 @@
 #if !defined TOYRISCVINSTRINFO_H_INCLUDED
 #define TOYRISCVINSTRINFO_H_INCLUDED
 
+#include "TOYRISCV.h"
 #include "TOYRISCVRegisterInfo.h"
 #include "llvm/CodeGen/TargetInstrInfo.h"
 
@@ -10,6 +11,11 @@
 namespace llvm {
 
 class TOYRISCVInstrInfo : public TOYRISCVGenInstrInfo {
+  virtual void anchor();
+
+public:
+  TOYRISCVInstrInfo();
+
   // TODO
 };
 

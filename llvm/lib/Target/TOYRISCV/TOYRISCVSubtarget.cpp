@@ -47,6 +47,10 @@ TOYRISCVSubtarget &TOYRISCVSubtarget::initializeSubtargetDependencies(
 
 TOYRISCVSubtarget::~TOYRISCVSubtarget() {}
 
+TOYRISCVInstrInfo const *TOYRISCVSubtarget::getInstrInfo() const {
+  return &InstrInfo;
+}
+
 TOYRISCVFrameLowering const *TOYRISCVSubtarget::getFrameLowering() const {
   return &FrameLowering;
 }
