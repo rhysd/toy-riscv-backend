@@ -11,8 +11,12 @@ StringRef TOYRISCVDAGToDAGISel::getPassName() const {
 }
 
 void TOYRISCVDAGToDAGISel::Select(SDNode *N) {
-  assert(N->isMachineOpcode() && "unsupported node");
-  N->setNodeId(-1);
+  if (N->isMachineOpcode()) {
+    N->setNodeId(-1);
+    return;
+  }
+
+  SelectCode(N);
 }
 
 // vim: set ts=2 sw=2 sts=2:
