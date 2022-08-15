@@ -1,6 +1,12 @@
+Toy RISC-V LLVM Backend
+=======================
+
+Yet another RISC-V LLVM Backend. This is a project for learning how LLVM backend works and what RISC-V architecture is
+by reimplementing the official LLVM's RISC-V backend.
+
 ## References
 
-- Official RISC-V backend: https://github.com/llvm/llvm-project/tree/f28c006a5895fc0e329fe15fead81e37457cb1d1/llvm/lib/Target/RISCV
+- Official RISC-V backend (LLVM 14.0.6): https://github.com/llvm/llvm-project/tree/f28c006a5895fc0e329fe15fead81e37457cb1d1/llvm/lib/Target/RISCV
 - RISC-V specification: https://riscv.org/technical/specifications/
   - v20191213 (PDF): https://github.com/riscv/riscv-isa-manual/releases/download/Ratified-IMAFDQC/riscv-spec-20191213.pdf
 - RISC-V Assembly Manual: https://github.com/riscv-non-isa/riscv-asm-manual/blob/master/riscv-asm.md
@@ -18,6 +24,7 @@ git clone --recursive https://github.com/rhysd/toy-riscv-backend.git
 Setup LLVM:
 
 ```sh
+cd /path/to/toy-riscv-backend
 ./setup.bash
 cd ./llvm-project/llvm
 mkdir ./build && cd ./build
@@ -25,12 +32,21 @@ cmake -G Ninja -DCMAKE_BUILD_TYPE=Debug -DLLVM_TARGETS_TO_BUILD="X86;TOYRISCV;RI
 ninja
 ```
 
+[setup.bash](./setup.bash) links all sources in [llvm/](./llvm) to [llvm-project/llvm/](./llvm-project/llvm) so that our
+backend is built as a part of `llc` compiler.
+
 Setup RISC-V toolchain:
 
 ```sh
 docker build . -t riscvback
 docker run -it --rm -v $(pwd):/app riscvback /bin/bash
 ```
+
+RISC-V toolchain like `riscv64-unknown-elf-gcc` or `spike` are available in the Docker container.
+
+## Related projects
+
+- Toy RISC-V 32bit CPU written in Chisel: https://github.com/rhysd/riscv32-cpu-chisel
 
 ## Random notes
 
@@ -48,14 +64,15 @@ Setting triple as `--target=riscv64-unknonw-linux-gnu` is necessary to emit LLVM
 Compile LLVM bitcode to assembly code.
 
 Set CPU arch to `-march=riscv64`. Default value of `-mcpu` is `generic-v64` so it is not necessary but here we ensure it.
-`-mattr` specifies what CPU excentions can be used. In this example, we enable 'd' extension by adding `+d`. It emits `source.s`.
+`-mattr` specifies what CPU excentions can be used. In this example, we enable 'd' extension by adding `+d`.
+It emits `source.s`.
 
 ```sh
 ./llvm-project/llvm/build/bin/llc -march=riscv64 -mcpu=generic-rv64 -mattr=+d -filetype=asm source.bc
 ```
 
-Check the generated assembly code. The `.attribute 5` is the attribute representing CPU arch. Check the CPU arch supports
-all features you need.
+Check the generated assembly code. The `.attribute 5` is the attribute representing CPU arch. Check the CPU arch
+supports all features you need.
 
 ```asm
 	.text
@@ -98,3 +115,7 @@ Then compile the bitcode to RISC-V 64bit assembly using our own TOYRISCV backend
 ```sh
 ./llvm-project/llvm/build/bin/llc -debug -march=toyriscv64 -filetype=asm hello.bc -o hello.S
 ```
+
+## License
+
+This project is licensed under [the MIT license](./LICENSE.txt).
