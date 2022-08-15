@@ -4,6 +4,8 @@
 - RISC-V specification: https://riscv.org/technical/specifications/
   - v20191213 (PDF): https://github.com/riscv/riscv-isa-manual/releases/download/Ratified-IMAFDQC/riscv-spec-20191213.pdf
 - RISC-V Assembly Manual: https://github.com/riscv-non-isa/riscv-asm-manual/blob/master/riscv-asm.md
+- Writing an LLVM Backend: https://llvm.org/docs/WritingAnLLVMBackend.html
+  - Basic Steps: https://llvm.org/docs/WritingAnLLVMBackend.html#basic-steps
 
 ## Getting started
 

@@ -9,8 +9,13 @@
 
 namespace llvm {
 
+class TOYRISCVSubtarget;
+
 class TOYRISCVRegisterInfo : public TOYRISCVGenRegisterInfo {
-protected:
+  const TOYRISCVSubtarget &Subtarget;
+
+public:
+  TOYRISCVRegisterInfo(TOYRISCVSubtarget const &ST, unsigned HwMode);
   MCPhysReg const *getCalleeSavedRegs(MachineFunction const *MF) const override;
   uint32_t const *getCallPreservedMask(MachineFunction const &MF,
                                        CallingConv::ID) const override;
@@ -18,6 +23,7 @@ protected:
   void eliminateFrameIndex(MachineBasicBlock::iterator II, int SPAdj,
                            unsigned FIOperandNum,
                            RegScavenger *RS = nullptr) const override;
+  Register getFrameRegister(MachineFunction const &MF) const override;
 };
 
 } // namespace llvm

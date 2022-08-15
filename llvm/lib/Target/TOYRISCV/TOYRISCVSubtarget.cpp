@@ -15,7 +15,7 @@ TOYRISCVSubtarget::TOYRISCVSubtarget(Triple const &TT, StringRef &CPU,
                                      TOYRISCVTargetMachine const &TTM)
     : TOYRISCVGenSubtargetInfo(TT, CPU, TuneCPU, FS), TargetTriple(TT), TM(TTM),
       FrameLowering(initializeSubtargetDependencies(CPU, TuneCPU, FS, TM)),
-      TargetLowering(TM, *this) {}
+      TargetLowering(TM, *this), RegInfo(*this, getHwMode()) {}
 
 TOYRISCVSubtarget &TOYRISCVSubtarget::initializeSubtargetDependencies(
     StringRef CPU, StringRef TuneCPU, StringRef FS, TargetMachine const &TM) {
@@ -47,8 +47,16 @@ TOYRISCVSubtarget &TOYRISCVSubtarget::initializeSubtargetDependencies(
 
 TOYRISCVSubtarget::~TOYRISCVSubtarget() {}
 
+TOYRISCVFrameLowering const *TOYRISCVSubtarget::getFrameLowering() const {
+  return &FrameLowering;
+}
+
 TOYRISCVTargetLowering const *TOYRISCVSubtarget::getTargetLowering() const {
   return &TargetLowering;
+}
+
+TOYRISCVRegisterInfo const *TOYRISCVSubtarget::getRegisterInfo() const {
+  return &RegInfo;
 }
 
 void TOYRISCVSubtarget::anchor() {}

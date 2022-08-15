@@ -1,4 +1,6 @@
 #include "TOYRISCVFrameLowering.h"
+#include "TOYRISCVInstrInfo.h"
+#include "TOYRISCVSubtarget.h"
 
 using namespace llvm;
 
@@ -17,7 +19,7 @@ void TOYRISCVFrameLowering::emitEpilogue(MachineFunction &MF,
 
 bool TOYRISCVFrameLowering::hasFP(const MachineFunction &MF) const {
   // TODO
-  return true;
+  return false;
 }
 
 MachineBasicBlock::iterator
@@ -25,7 +27,7 @@ TOYRISCVFrameLowering::eliminateCallFramePseudoInstr(
     MachineFunction &MF, MachineBasicBlock &MBB,
     MachineBasicBlock::iterator I) const {
   // TODO
-  return I;
+  return MBB.erase(I);
 }
 
 // vim: set ts=2 sw=2 sts=2:

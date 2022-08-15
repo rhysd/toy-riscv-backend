@@ -1,6 +1,7 @@
 #if !defined TOYRISCVINSTRINFO_H_INCLUDED
 #define TOYRISCVINSTRINFO_H_INCLUDED
 
+#include "TOYRISCVRegisterInfo.h"
 #include "llvm/CodeGen/TargetInstrInfo.h"
 
 #define GET_INSTRINFO_HEADER

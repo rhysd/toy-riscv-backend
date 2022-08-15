@@ -9,6 +9,10 @@ TOYRISCVAsmPrinter::TOYRISCVAsmPrinter(TargetMachine &TM,
                                        std::unique_ptr<MCStreamer> Streamer)
     : AsmPrinter(TM, std::move(Streamer)) {}
 
+StringRef TOYRISCVAsmPrinter::getPassName() const {
+  return "TOYRISCV Assembly Printer";
+}
+
 extern "C" void LLVMInitializeTOYRISCVAsmPrinter() {
   RegisterAsmPrinter<TOYRISCVAsmPrinter> X(getTheTOYRISCV32Target());
   RegisterAsmPrinter<TOYRISCVAsmPrinter> Y(getTheTOYRISCV64Target());
